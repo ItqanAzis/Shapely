@@ -1,0 +1,7 @@
+/shapely-api/vendor
+/shapely-api/node_modules
+/shapely-api/.env
+/shapely-web/node_modules
+/shapely-web/dist
+.DS_Store
+Thumbs.db
