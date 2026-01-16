@@ -148,7 +148,8 @@ import { ref, reactive, onMounted } from 'vue';
 import axios from 'axios';
 
 // --- CONFIGURATION ---
-const API_BASE = 'http://localhost:8081/Shapely/shapely-api/public/api'; 
+//const API_BASE = 'http://localhost:8081/Shapely/shapely-api/public/api'; 
+const API_BASE = import.meta.env.VITE_API_URL;
 
 const items = ref([]);
 const isLoggedIn = ref(false);
