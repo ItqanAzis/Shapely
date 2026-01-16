@@ -168,16 +168,26 @@ const getAuthHeader = () => ({ headers: { Authorization: `Bearer ${userToken.val
 // --- ACTIONS ---
 const handleLogin = async () => {
   try {
-    const response = await axios.post(`${API_BASE}/login`, loginForm);
+    // We added the third argument (config) here 👇
+    const response = await axios.post(`${API_BASE}/login`, loginForm, {
+      headers: {
+        'Accept': 'application/json' // <--- THIS PREVENTS THE 404 CRASH
+      }
+    });
+
     localStorage.setItem('auth_token', response.data.token);
     userToken.value = response.data.token;
     isLoggedIn.value = true;
     loginError.value = '';
-    loginForm.email = ''; loginForm.password = '';
+    loginForm.email = ''; 
+    loginForm.password = '';
   } catch (error) {
+    // Now we can actually see the real error in the console
+    console.error("Login Failed:", error.response); 
     loginError.value = "Incorrect credentials. Try admin@alphv.com / Admin123@";
   }
 };
+
 
 const handleLogout = async () => {
   try { await axios.post(`${API_BASE}/logout`, {}, getAuthHeader()); } catch(e) {}
